@@ -1,0 +1,24 @@
+{
+    "name": "scragg0x/omniconv-php",
+    "type": "library",
+    "description": "omniconv API wrapper in php",
+    "keywords": ["omniconv", "unoconv", "libre office"],
+    "homepage": "https://github.com/scragg0x/omniconv-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthew Scragg",
+            "email": "scragg@gmail.com",
+            "homepage": "http://fleckz.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "guzzlehttp/guzzle": "5.3.*@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Omniconv": "src/"
+        }
+    }
+}
