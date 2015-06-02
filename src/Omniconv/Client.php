@@ -39,10 +39,10 @@ class Client
     }
 
     /**
-     * @param float $timeout seconds
+     * @param int $timeout milliseconds
      * @return bool
      */
-    public function isUp($timeout=1.0)
+    public function isUp($timeout=1000)
     {
         try {
             $response = $this->client->get('/ping', ['timeout' => $timeout]);
