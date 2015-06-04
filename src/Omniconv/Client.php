@@ -6,6 +6,8 @@ class Client
 {
     public $client;
     public $baseUri;
+    /** @var int $timeout milliseconds */
+    public $timeout = 0;
 
     /**
      * @param string $baseUri
@@ -28,7 +30,8 @@ class Client
             'body' => array(
                 'format' => $toFormat,
                 'data' => fopen($inFile, 'r'),
-            )
+            ),
+            'timeout' => $this->timeout
         ));
 
         if ($outFile) {
@@ -45,7 +48,7 @@ class Client
     public function isUp($timeout=1000)
     {
         try {
-            $response = $this->client->get('/ping', ['timeout' => $timeout]);
+            $response = $this->client->get('/ping', array('timeout' => $timeout));
             return ($response->getStatusCode() == 200);
         } catch (\Exception $e) {
             return false;
