@@ -9,7 +9,7 @@ http://omniconv.com/api
 Example
 -------
 ```php
-$omniconv = new Omniconv\Client();
+$omniconv = new Omniconv\Client($apiKey);
 
 $omniconv->conv('pdf', '/path/to/infile.odt', '/path/to/outfile.pdf');
 ```
