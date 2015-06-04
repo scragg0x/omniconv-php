@@ -5,17 +5,21 @@ namespace Omniconv;
 class Client
 {
     public $client;
+    public $key;
 
     /**
+     * @param string $key
      * @param array $options
      */
-    public function __construct($options = array())
+    public function __construct($key=null, $options = array())
     {
+        $this->key = $key;
+
         $defaults = array(
             'base_url' => 'http://omniconv.com'
         );
 
-        $options = array_replace($defaults, $options);
+        $options = array_replace_recursive($defaults, $options);
 
         $this->client = new \GuzzleHttp\Client($options);
     }
@@ -30,6 +34,7 @@ class Client
     public function conv($toFormat, $inFile, $outFile=null, $timeout=0)
     {
         $response = $this->client->post('/conv', array(
+            'headers' => array('X-Omniconv-Key', $this->key),
             'body' => array(
                 'format' => $toFormat,
                 'data' => fopen($inFile, 'r'),
