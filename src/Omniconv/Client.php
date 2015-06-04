@@ -5,33 +5,36 @@ namespace Omniconv;
 class Client
 {
     public $client;
-    public $baseUri;
-    /** @var int $timeout milliseconds */
-    public $timeout = 0;
 
     /**
-     * @param string $baseUri
+     * @param array $options
      */
-    public function __construct($baseUri = 'http://omniconv.com')
+    public function __construct($options = array())
     {
-        $this->baseUri = $baseUri;
-        $this->client = new \GuzzleHttp\Client(['base_url' => $baseUri]);
+        $defaults = array(
+            'base_url' => 'http://omniconv.com'
+        );
+
+        $options = array_replace($defaults, $options);
+
+        $this->client = new \GuzzleHttp\Client($options);
     }
 
     /**
      * @param $toFormat
      * @param $inFile
-     * @param null $outFile
+     * @param string $outFile
+     * @param int $timeout
      * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|null
      */
-    public function conv($toFormat, $inFile, $outFile=null)
+    public function conv($toFormat, $inFile, $outFile=null, $timeout=0)
     {
         $response = $this->client->post('/conv', array(
             'body' => array(
                 'format' => $toFormat,
                 'data' => fopen($inFile, 'r'),
             ),
-            'timeout' => $this->timeout
+            'timeout' => $timeout
         ));
 
         if ($outFile) {
