@@ -19,9 +19,7 @@ class Client
             'base_url' => 'http://omniconv.com'
         );
 
-        $options = array_replace_recursive($defaults, $options);
-
-        $this->client = new \GuzzleHttp\Client($options);
+        $this->client = new \GuzzleHttp\Client(array_replace_recursive($defaults, (array) $options));
     }
 
     /**
@@ -42,9 +40,9 @@ class Client
             )
         );
 
-        $requestOptions = array_replace_recursive($defaults, $requestOptions);
 
-        $request = $this->client->createRequest('POST', '/conv', $requestOptions);
+        $request = $this->client->createRequest('POST', '/conv',
+            array_replace_recursive($defaults, (array) $requestOptions));
 
         if ($returnRequest) {
             return $request;
